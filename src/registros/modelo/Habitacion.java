@@ -8,6 +8,28 @@ package registros.modelo;
  *
  * @author MarcoR
  */
-public class Habitacion {
+public abstract class Habitacion {
+    protected String numero;
+    
+    public Habitacion(String numero) {
+        this.numero = numero;
+}
+    public String getNumero() {
+        return numero;
+    }
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    public abstract String getTipo();
+
+    public abstract int getCapacidadMaxima();
+
+    public abstract long getTarifaPorNoche();
+    
+    public String toString() {
+        return "Hab. " 
+                + numero + " (" + getTipo() 
+                + " - Máx: " + getCapacidadMaxima() + ")";
+    }
     
 }
