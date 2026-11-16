@@ -9,5 +9,7 @@ package registros.modelo;
  * @author MarcoR
  */
 public enum EstadoReserva {
-    
+    ACTIVA,
+    CANCELADA,
+    COMPLETADA
 }

@@ -8,6 +8,22 @@ package registros.modelo;
  *
  * @author MarcoR
  */
-public class HabitacionFamiliar {
-    
+public class HabitacionFamiliar extends Habitacion {
+    public HabitacionFamiliar(String numero) {
+        super(numero);
+    }
+    @Override
+    public String getTipo() {
+        return "Familiar";
+    }
+
+    @Override
+    public int getCapacidadMaxima() {
+        return 4;
+    }
+
+    @Override
+    public long getTarifaPorNoche() {
+        return 65000L;
+    }
 }
