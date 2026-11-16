@@ -13,27 +13,65 @@ import java.time.temporal.ChronoUnit;
  */
 public class Reserva {
     private static int contadorId = 1;
-    
+
     private String idReserva;
     private Huesped huesped;
     private Habitacion habitacion;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private int cantidadDias;
-    private int costoTotal;
+    private int cantidadPersonas;
+    private LocalDate fechaEntrada;
+    private LocalDate fechaSalida;
+    private LocalDate fechaSalidaReal;
+    private int cantidadNoches;
+    private long importeTotal;
     private EstadoReserva estado;
-    private String recepcionista; 
+    private String recepcionista;
 
-    public Reserva(Huesped huesped, Habitacion habitacion, LocalDate fechaInicio, LocalDate fechaFin, String recepcionista) {
-        this.idReserva = "RES-" + contadorId++; 
+    public Reserva(Huesped huesped, Habitacion habitacion, int cantidadPersonas,
+            LocalDate fechaEntrada, LocalDate fechaSalida, String recepcionista) {
+
+        this.idReserva = "RES-" + contadorId;
+        contadorId = contadorId + 1;
+
         this.huesped = huesped;
         this.habitacion = habitacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.cantidadDias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaFin);
-        this.costoTotal = this.cantidadDias * (int) habitacion.getTarifaPorNoche();
+        this.cantidadPersonas = cantidadPersonas;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.fechaSalidaReal = null;
+
+        this.cantidadNoches = (int) ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+        this.importeTotal = this.cantidadNoches * habitacion.getTarifaPorNoche();
+
         this.estado = EstadoReserva.CONFIRMADA;
         this.recepcionista = recepcionista;
+    }
+
+    public boolean esValida() {
+        if (huesped == null) {
+            return false;
+        }
+        if (habitacion == null) {
+            return false;
+        }
+        if (fechaEntrada == null || fechaSalida == null) {
+            return false;
+        }
+        if (fechaEntrada.compareTo(LocalDate.now()) < 0) {
+            return false;
+        }
+        if (fechaSalida.compareTo(fechaEntrada) <= 0) {
+            return false;
+        }
+        if (cantidadPersonas <= 0) {
+            return false;
+        }
+        if (cantidadPersonas > habitacion.getCapacidadMaxima()) {
+            return false;
+        }
+        if (recepcionista == null || recepcionista.trim().equals("")) {
+            return false;
+        }
+        return true;
     }
 
     public String getIdReserva() {
@@ -44,40 +82,36 @@ public class Reserva {
         return huesped;
     }
 
-    public void setHuesped(Huesped huesped) {
-        this.huesped = huesped;
-    }
-
     public Habitacion getHabitacion() {
         return habitacion;
     }
 
-    public void setHabitacion(Habitacion habitacion) {
-        this.habitacion = habitacion;
+    public int getCantidadPersonas() {
+        return cantidadPersonas;
     }
 
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
+    public LocalDate getFechaEntrada() {
+        return fechaEntrada;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
     }
 
-    public LocalDate getFechaFin() {
-        return fechaFin;
+    public LocalDate getFechaSalidaReal() {
+        return fechaSalidaReal;
     }
 
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
+    public void registrarSalidaReal(LocalDate fecha) {
+        this.fechaSalidaReal = fecha;
     }
 
-    public int getCantidadDias() {
-        return cantidadDias;
+    public int getCantidadNoches() {
+        return cantidadNoches;
     }
 
-    public int getCostoTotal() {
-        return costoTotal;
+    public long getImporteTotal() {
+        return importeTotal;
     }
 
     public EstadoReserva getEstado() {
@@ -92,7 +126,7 @@ public class Reserva {
         return recepcionista;
     }
 
-    public void setRecepcionista(String recepcionista) {
-        this.recepcionista = recepcionista;
+    public String toString() {
+        return idReserva + " - " + huesped.getNombreCompleto() + " (" + habitacion.getNumero() + ") " + estado;
     }
 }

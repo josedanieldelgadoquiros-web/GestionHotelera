@@ -4,10 +4,47 @@
  */
 package registros.controlador;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import registros.modelo.GestorHotel;
+import registros.modelo.Habitacion;
+import registros.modelo.HabitacionFactory;
+import registros.modelo.Huesped;
+import registros.modelo.Reserva;
+
 /**
  *
  * @author MarcoR
  */
 public class ReservaControlador {
-    
+    public Habitacion crearHabitacion(String tipo, String numero) {
+        return HabitacionFactory.crearHabitacion(tipo, numero);
+    }
+
+    public boolean registrarHabitacion(String tipo, String numero) {
+        Habitacion nuevaHabitacion = crearHabitacion(tipo, numero);
+
+        if (nuevaHabitacion == null) {
+            return false;
+        }
+
+        return GestorHotel.getInstancia().agregarHabitacion(nuevaHabitacion);
+    }
+
+    public boolean registrarReserva(Huesped huesped, Habitacion habitacion, int cantidadPersonas,
+            LocalDate fechaEntrada, LocalDate fechaSalida, String recepcionista) {
+
+        Reserva nuevaReserva = new Reserva(huesped, habitacion, cantidadPersonas,
+                fechaEntrada, fechaSalida, recepcionista);
+
+        return GestorHotel.getInstancia().agregarReserva(nuevaReserva);
+    }
+
+    public ArrayList<Habitacion> obtenerHabitaciones() {
+        return GestorHotel.getInstancia().getHabitaciones();
+    }
+
+    public ArrayList<Reserva> obtenerReservas() {
+        return GestorHotel.getInstancia().getReservas();
+    }
 }
