@@ -9,19 +9,29 @@ package registros.modelo;
  * @author MarcoR
  */
 public class HabitacionFactory {
-    public static Habitacion crearHabitacion(String tipo, String numero) {
-        if (tipo == null || tipo.trim().isEmpty()) {
-            throw new IllegalArgumentException("Debe seleccionar un tipo de habitación.");
+        public static Habitacion crearHabitacion(String tipo, String numero) {
+        if (tipo == null) {
+            return null;
         }
-        switch (tipo.trim().toLowerCase()) {
-            case "individual":
-                return new HabitacionIndividual(numero);
-            case "doble":
-                return new HabitacionDoble(numero);
-            case "familiar":
-                return new HabitacionFamiliar(numero);
-            default:
-                throw new IllegalArgumentException("Tipo de habitación no válido: " + tipo);
+        
+        String tipoMinuscula = tipo.toLowerCase();
+        
+        if (tipoMinuscula.equals("individual")) {
+            Habitacion habitacion = new HabitacionIndividual(numero);
+            return habitacion;
+        } else {
+            if (tipoMinuscula.equals("doble")) {
+                Habitacion habitacion = new HabitacionDoble(numero);
+                return habitacion;
+            } else {
+                if (tipoMinuscula.equals("familiar")) {
+                    Habitacion habitacion = new HabitacionFamiliar(numero);
+                    return habitacion;
+                } else {
+                    return null;
+                }
+            }
         }
-    }
+        }
 }
+

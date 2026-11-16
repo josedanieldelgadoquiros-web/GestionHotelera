@@ -12,38 +12,56 @@ import java.util.List;
  * @author MarcoR
  */
 public class GestorHotel {
+    private static GestorHotel instancia;
+    
     private List<Habitacion> habitaciones;
     private List<Huesped> huespedes;
     private List<Reserva> reservas;
-    
-    public GestorHotel() {
+    private String usuarioActivo;
+
+    private GestorHotel() {
         this.habitaciones = new ArrayList<>();
         this.huespedes = new ArrayList<>();
         this.reservas = new ArrayList<>();
+        this.usuarioActivo = "";
     }
+
+    public static GestorHotel getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorHotel();
+        }
+        return instancia;
+    }
+
     public void agregarHabitacion(Habitacion habitacion) {
-        if (habitacion != null) {
-            habitaciones.add(habitacion);
-        }
+        habitaciones.add(habitacion);
     }
-        public void registrarHuesped(Huesped huesped) {
-        if (huesped != null) {
-            huespedes.add(huesped);
-        }
-}
-        public void agregarReserva(Reserva reserva) {
-        if (reserva != null) {
-            reservas.add(reserva);
-        }
+
+    public void agregarHuesped(Huesped huesped) {
+        huespedes.add(huesped);
     }
-        public List<Habitacion> getHabitaciones() {
+
+    public void agregarReserva(Reserva reserva) {
+        reservas.add(reserva);
+    }
+
+    public List<Habitacion> getHabitaciones() {
         return habitaciones;
     }
-        public List<Huesped> getHuespedes() {
+
+    public List<Huesped> getHuespedes() {
         return huespedes;
     }
-        public List<Reserva> getReservas() {
+
+    public List<Reserva> getReservas() {
         return reservas;
     }
-        
+
+    public String getUsuarioActivo() {
+        return usuarioActivo;
+    }
+
+    public void setUsuarioActivo(String usuarioActivo) {
+        this.usuarioActivo = usuarioActivo;
+    }
 }

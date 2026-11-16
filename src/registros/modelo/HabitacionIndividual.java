@@ -11,18 +11,20 @@ package registros.modelo;
 public class HabitacionIndividual extends Habitacion {
     public HabitacionIndividual(String numero) {
         super(numero);
-        
     }
+
     @Override
     public String getTipo() {
         return "Individual";
     }
+
     @Override
     public int getCapacidadMaxima() {
         return 1;
     }
+
     @Override
     public long getTarifaPorNoche() {
-        return 25000L;
+        return 25000; // Tarifa por noche en colones
     }
 }

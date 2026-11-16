@@ -13,13 +13,16 @@ public abstract class Habitacion {
     
     public Habitacion(String numero) {
         this.numero = numero;
-}
+    }
+    
     public String getNumero() {
         return numero;
     }
+    
     public void setNumero(String numero) {
         this.numero = numero;
     }
+    
     public abstract String getTipo();
 
     public abstract int getCapacidadMaxima();
@@ -31,5 +34,4 @@ public abstract class Habitacion {
                 + numero + " (" + getTipo() 
                 + " - Máx: " + getCapacidadMaxima() + ")";
     }
-    
 }
