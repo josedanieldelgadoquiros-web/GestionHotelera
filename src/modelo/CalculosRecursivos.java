@@ -17,13 +17,13 @@ public class CalculosRecursivos {
         }
 
         Reserva reserva = reservas.get(posicion);
-        long importe = 0;
+        long ingreso = 0;
 
         if (reserva.getEstado() == EstadoReserva.CONFIRMADA) {
-            importe = reserva.getImporteTotal();
+            ingreso = reserva.getCostoTotal();
         }
 
-        return importe + sumarIngresos(reservas, posicion + 1);
+        return ingreso + sumarIngresos(reservas, posicion + 1);
     }
 
     public int contarHabitacionesDisponibles(
@@ -44,32 +44,32 @@ public class CalculosRecursivos {
             return 0;
         }
 
-        Habitacion habitacion = habitaciones.get(posicion);
-        int cantidad = 0;
+        int disponible = 0;
 
-        if (estaDisponible(habitacion, reservas, fecha)) {
-            cantidad = 1;
+        if (estaDisponible(habitaciones.get(posicion), reservas, fecha)) {
+            disponible = 1;
         }
 
-        return cantidad + contarDisponibles(
-                habitaciones, reservas, fecha, posicion + 1);
+        return disponible
+                + contarDisponibles(habitaciones, reservas, fecha, posicion + 1);
     }
 
-    private boolean estaDisponible(Habitacion habitacion,
-            ArrayList<Reserva> reservas, LocalDate fecha) {
+    public boolean estaDisponible(
+            Habitacion habitacion,
+            ArrayList<Reserva> reservas,
+            LocalDate fecha) {
 
         for (Reserva reserva : reservas) {
             boolean bloquea = reserva.getEstado() == EstadoReserva.CONFIRMADA
                     || reserva.getEstado() == EstadoReserva.HOSPEDADO;
 
-            boolean mismaHabitacion =
-                    String.valueOf(reserva.getHabitacion().getNumero())
-                    .equals(String.valueOf(habitacion.getNumero()));
+            boolean mismaHabitacion = reserva.getHabitacion().getNumero()
+                    .equals(habitacion.getNumero());
 
-            boolean ocupaLaFecha = !fecha.isBefore(reserva.getFechaEntrada())
-                    && fecha.isBefore(reserva.getFechaSalida());
+            boolean ocupaFecha = !fecha.isBefore(reserva.getFechaInicio())
+                    && fecha.isBefore(reserva.getFechaFin());
 
-            if (bloquea && mismaHabitacion && ocupaLaFecha) {
+            if (bloquea && mismaHabitacion && ocupaFecha) {
                 return false;
             }
         }
