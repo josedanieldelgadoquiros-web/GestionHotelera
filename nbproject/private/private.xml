@@ -3,13 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/EstadoReserva.java</file>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/Huesped.java</file>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/Habitacion.java</file>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionIndividual.java</file>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionDoble.java</file>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionFamiliar.java</file>
-            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionFactory.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/modelo/IndicadoresHotel.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/modelo/CalculosRecursivos.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/principal/InicioAplicacion.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/controlador/ControladorInicioSesion.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/hilos/SupervisorReservas.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/EstadoReserva.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/hilos/ActualizadorIndicadores.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/controlador/ControladorOperaciones.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/controlador/RegistroControlador.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/controlador/ReservaControlador.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/GestorHotel.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/Habitacion.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/HabitacionDoble.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/HabitacionFactory.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/HabitacionFamiliar.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/HabitacionIndividual.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/Huesped.java</file>
+            <file>file:/C:/Users/ElectrickS/Downloads/Universidad/programacion%202/Proyecto/GestionHotelera/src/registros/modelo/Reserva.java</file>
         </group>
     </open-files>
 </project-private>
