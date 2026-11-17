@@ -94,7 +94,7 @@ public class PanelIndicadoresHotel extends javax.swing.JPanel {
                         .addComponent(lblIngresosTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(lblIngresosValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +127,7 @@ public class PanelIndicadoresHotel extends javax.swing.JPanel {
                     .addComponent(lblIngresosValor))
                 .addGap(12, 12, 12)
                 .addComponent(btnEjecutarProcesos)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
