@@ -10,6 +10,12 @@
             <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionDoble.java</file>
             <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionFamiliar.java</file>
             <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/HabitacionFactory.java</file>
+            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/GestorHotel.java</file>
+            <file>file:/C:/Programacion/GestionHotelera/src/registros/modelo/Reserva.java</file>
+            <file>file:/C:/Programacion/GestionHotelera/src/registros/controlador/RegistroControlador.java</file>
+            <file>file:/C:/Programacion/GestionHotelera/src/registros/controlador/ReservaControlador.java</file>
+            <file>file:/C:/Programacion/GestionHotelera/src/vista/FrmHotel.java</file>
+            <file>file:/C:/Programacion/GestionHotelera/src/vista/FrmLogin.java</file>
         </group>
     </open-files>
 </project-private>
