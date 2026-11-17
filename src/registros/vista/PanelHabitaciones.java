@@ -26,19 +26,93 @@ public class PanelHabitaciones extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNumeroHabitacion = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cmbTipoHabitacion = new javax.swing.JComboBox<>();
+        txtCapacidad = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtTarifa = new javax.swing.JTextField();
+        btnRegistrarHabitacion = new javax.swing.JButton();
+        btnLimpiarHabitacion = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaHabitaciones = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(245, 249, 254));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(11, 79, 145));
+        jLabel1.setText("Registro de habitaciones");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        jLabel2.setText("Número:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        add(txtNumeroHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 200, -1));
+
+        jLabel3.setText("Tipo:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 96, -1, -1));
+
+        jLabel4.setText("Capacidad:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 148, -1, -1));
+
+        cmbTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Doble", "Familiar" }));
+        add(cmbTipoHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 200, -1));
+
+        txtCapacidad.setEditable(false);
+        add(txtCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 200, -1));
+
+        jLabel5.setText("Tarifa por noche:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 194, -1, -1));
+
+        txtTarifa.setEditable(false);
+        add(txtTarifa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 200, -1));
+
+        btnRegistrarHabitacion.setBackground(new java.awt.Color(11, 79, 145));
+        btnRegistrarHabitacion.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarHabitacion.setText("Registrar");
+        add(btnRegistrarHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
+
+        btnLimpiarHabitacion.setText("Limpiar");
+        add(btnLimpiarHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, -1, -1));
+
+        tablaHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Número", "Tipo", "Capacidad", "Tarifa"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaHabitaciones);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 275, -1, 180));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimpiarHabitacion;
+    private javax.swing.JButton btnRegistrarHabitacion;
+    private javax.swing.JComboBox<String> cmbTipoHabitacion;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaHabitaciones;
+    private javax.swing.JTextField txtCapacidad;
+    private javax.swing.JTextField txtNumeroHabitacion;
+    private javax.swing.JTextField txtTarifa;
     // End of variables declaration//GEN-END:variables
 }

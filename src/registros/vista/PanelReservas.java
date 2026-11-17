@@ -26,19 +26,144 @@ public class PanelReservas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtCodigoReserva = new javax.swing.JTextField();
+        txtPersonas = new javax.swing.JTextField();
+        txtFechaEntrada = new javax.swing.JTextField();
+        txtFechaSalida = new javax.swing.JTextField();
+        cmbHuesped = new javax.swing.JComboBox<>();
+        cmbHabitacion = new javax.swing.JComboBox<>();
+        cmbEstado = new javax.swing.JComboBox<>();
+        btnRegistrarReserva = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaReservas = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtNoches = new javax.swing.JTextField();
+        txtImporte = new javax.swing.JTextField();
+        txtRecepcionista = new javax.swing.JTextField();
+
+        setBackground(new java.awt.Color(245, 249, 254));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(11, 79, 145));
+        jLabel1.setText("Registro de reservas");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+
+        jLabel2.setText("Código:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 43, -1, -1));
+
+        jLabel3.setText("Huésped:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 85, -1, -1));
+
+        jLabel4.setText("Habitación:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 122, -1, -1));
+
+        jLabel5.setText("Personas:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 167, -1, -1));
+
+        jLabel6.setText("Fecha de entrada:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 207, -1, -1));
+
+        jLabel7.setText("Fecha de salida:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 250, -1, -1));
+
+        jLabel8.setText("Estado:");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 287, -1, -1));
+
+        txtCodigoReserva.setEditable(false);
+        add(txtCodigoReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 120, -1));
+        add(txtPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 140, -1));
+        add(txtFechaEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 140, -1));
+        add(txtFechaSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 140, -1));
+
+        cmbHuesped.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione huésped" }));
+        add(cmbHuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
+
+        cmbHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione habitación" }));
+        add(cmbHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirmada" }));
+        add(cmbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
+
+        btnRegistrarReserva.setBackground(new java.awt.Color(11, 79, 145));
+        btnRegistrarReserva.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarReserva.setText("Registrar reserva");
+        add(btnRegistrarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 323, -1, -1));
+
+        tablaReservas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Huésped", "Habitación", "Entrada", "Salida", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaReservas);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 352, -1, 190));
+
+        jLabel9.setText("Noches:");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
+
+        jLabel10.setText("Importe:");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
+
+        jLabel11.setText("Recepcionista:");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
+
+        txtNoches.setEditable(false);
+        add(txtNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 130, -1));
+
+        txtImporte.setEditable(false);
+        add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 140, -1));
+
+        txtRecepcionista.setEditable(false);
+        add(txtRecepcionista, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 140, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrarReserva;
+    private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JComboBox<String> cmbHabitacion;
+    private javax.swing.JComboBox<String> cmbHuesped;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaReservas;
+    private javax.swing.JTextField txtCodigoReserva;
+    private javax.swing.JTextField txtFechaEntrada;
+    private javax.swing.JTextField txtFechaSalida;
+    private javax.swing.JTextField txtImporte;
+    private javax.swing.JTextField txtNoches;
+    private javax.swing.JTextField txtPersonas;
+    private javax.swing.JTextField txtRecepcionista;
     // End of variables declaration//GEN-END:variables
 }

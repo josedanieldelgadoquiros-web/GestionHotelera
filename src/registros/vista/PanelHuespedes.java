@@ -26,19 +26,87 @@ public class PanelHuespedes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtIdentificacion = new javax.swing.JTextField();
+        txtNombreCompleto = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        btnRegistrarHuesped = new javax.swing.JButton();
+        btnLimpiarHuesped = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaHuespedes = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(245, 249, 254));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(11, 79, 145));
+        jLabel1.setText("Registro de huéspedes");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 6, -1, -1));
+
+        jLabel2.setText("Identificación:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 57, -1, -1));
+
+        jLabel3.setText("Nombre completo:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 102, -1, -1));
+
+        jLabel4.setText("Teléfono:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 149, -1, -1));
+
+        jLabel5.setText("Correo electrónico:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 194, -1, -1));
+        add(txtIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 200, -1));
+        add(txtNombreCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 200, -1));
+        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 200, -1));
+        add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 200, -1));
+
+        btnRegistrarHuesped.setBackground(new java.awt.Color(11, 79, 145));
+        btnRegistrarHuesped.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarHuesped.setText("Registrar");
+        add(btnRegistrarHuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 245, -1, -1));
+
+        btnLimpiarHuesped.setText("Limpiar");
+        add(btnLimpiarHuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 245, -1, -1));
+
+        tablaHuespedes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Identificación", "Nombre", "Teléfono", "Correo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaHuespedes);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 274, -1, 190));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimpiarHuesped;
+    private javax.swing.JButton btnRegistrarHuesped;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaHuespedes;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtIdentificacion;
+    private javax.swing.JTextField txtNombreCompleto;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
