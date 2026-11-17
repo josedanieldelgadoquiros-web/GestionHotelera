@@ -13,36 +13,34 @@ public class ControladorInicioSesion {
     }
 
     public boolean iniciarSesion(String usuario, String contrasena) {
-        boolean recepcionistaUno = "recepcion1".equals(usuario)
-                && "Hotel123".equals(contrasena);
-        boolean recepcionistaDos = "recepcion2".equals(usuario)
-                && "Hotel456".equals(contrasena);
+       if (usuario == null || contrasena == null) {
+    return false;
+       } synchronized (gestor) {
+    if (!gestor.iniciarSesion(usuario, contrasena)) {
+        return false;
+    }
 
-        if (!recepcionistaUno && !recepcionistaDos) {
-            return false;
-        }
+    int vencidas = gestor.actualizarReservasVencidas(LocalDate.now());
 
-        synchronized (gestor) {
-            gestor.setUsuarioActivo(usuario);
-        }
+    System.out.println("Sesión iniciada: " + usuario
+            + ". Reservas vencidas: " + vencidas);
 
-        SupervisorReservas supervisor = new SupervisorReservas(gestor);
-        int vencidas = supervisor.revisarVencidas(LocalDate.now());
-        System.out.println("Sesión iniciada: " + usuario
-                + ". Reservas vencidas: " + vencidas);
-        return true;
+    return true;
+}
     }
 
     public void cerrarSesion() {
-        synchronized (gestor) {
-            gestor.setUsuarioActivo("");
-        }
-    }
-
-    public String getUsuarioActivo() {
-        synchronized (gestor) {
-            return gestor.getUsuarioActivo();
-        }
+         synchronized (gestor) {
+        gestor.cerrarSesion();
     }
 }
+
+public String getUsuarioActivo() {
+    synchronized (gestor) {
+        return gestor.getUsuarioActivo();
+    }
+}
+
+}
+
 

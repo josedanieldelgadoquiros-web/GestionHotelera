@@ -20,7 +20,7 @@ public class CalculosRecursivos {
         long ingreso = 0;
 
         if (reserva.getEstado() == EstadoReserva.CONFIRMADA) {
-            ingreso = reserva.getCostoTotal();
+            ingreso = reserva.getImporteTotal();
         }
 
         return ingreso + sumarIngresos(reservas, posicion + 1);
@@ -66,8 +66,8 @@ public class CalculosRecursivos {
             boolean mismaHabitacion = reserva.getHabitacion().getNumero()
                     .equals(habitacion.getNumero());
 
-            boolean ocupaFecha = !fecha.isBefore(reserva.getFechaInicio())
-                    && fecha.isBefore(reserva.getFechaFin());
+            boolean ocupaFecha = !fecha.isBefore(reserva.getFechaEntrada())
+                    && fecha.isBefore(reserva.getFechaSalida());
 
             if (bloquea && mismaHabitacion && ocupaFecha) {
                 return false;

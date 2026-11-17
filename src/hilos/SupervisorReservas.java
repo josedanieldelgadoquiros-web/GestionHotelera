@@ -19,7 +19,7 @@ public class SupervisorReservas implements Runnable {
         synchronized (gestor) {
             for (Reserva reserva : gestor.getReservas()) {
                 if (reserva.getEstado() == EstadoReserva.CONFIRMADA
-                        && reserva.getFechaInicio().isBefore(fecha)) {
+                        && reserva.getFechaEntrada().isBefore(fecha)) {
 
                     reserva.setEstado(EstadoReserva.VENCIDA);
                     cantidad++;
