@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class PanelIndicadoresHotel extends javax.swing.JPanel {
     private ControladorOperaciones controlador;
 private Timer reloj;

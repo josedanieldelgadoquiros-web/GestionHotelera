@@ -77,10 +77,10 @@ private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
         jLabel5.setText("Personas:");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 167, -1, -1));
 
-        jLabel6.setText("Fecha de entrada:");
+        jLabel6.setText("Entrada (dd/MM/aaaa):");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 207, -1, -1));
 
-        jLabel7.setText("Fecha de salida:");
+        jLabel7.setText("Salida (dd/MM/aaaa):");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 250, -1, -1));
 
         jLabel8.setText("Estado:");
@@ -131,7 +131,7 @@ private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
 
         jLabel10.setText("Importe:");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, -1, -1));
 
         jLabel11.setText("Recepcionista:");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
@@ -172,12 +172,14 @@ private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
 
     java.time.LocalDate fechaEntrada;
     java.time.LocalDate fechaSalida;
+    java.time.format.DateTimeFormatter formato =
+            java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu");
     try {
-        fechaEntrada = java.time.LocalDate.parse(txtFechaEntrada.getText().trim());
-        fechaSalida = java.time.LocalDate.parse(txtFechaSalida.getText().trim());
+        fechaEntrada = java.time.LocalDate.parse(txtFechaEntrada.getText().trim(), formato);
+        fechaSalida = java.time.LocalDate.parse(txtFechaSalida.getText().trim(), formato);
     } catch (java.time.format.DateTimeParseException e) {
         javax.swing.JOptionPane.showMessageDialog(this,
-                "Las fechas deben tener el formato AAAA-MM-DD, por ejemplo 2026-11-20.",
+                "Las fechas deben tener el formato dd/MM/aaaa, por ejemplo 20/11/2026.",
                 "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         return;
     }
@@ -253,14 +255,16 @@ private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
     modelo.setRowCount(0);
 
     java.util.ArrayList<registros.modelo.Reserva> lista = controladorReservas.obtenerReservas();
+    java.time.format.DateTimeFormatter formato =
+            java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu");
     if (lista != null) {
         for (registros.modelo.Reserva r : lista) {
             Object[] fila = {
                 r.getIdReserva(),
                 r.getHuesped().getNombreCompleto(),
                 r.getHabitacion().getNumero(),
-                r.getFechaEntrada(),
-                r.getFechaSalida(),
+                r.getFechaEntrada().format(formato),
+                r.getFechaSalida().format(formato),
                 r.getEstado()
             };
             modelo.addRow(fila);

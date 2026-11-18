@@ -16,6 +16,7 @@ public class PanelHabitaciones extends javax.swing.JPanel {
     public PanelHabitaciones() {
         initComponents();
     controlador = new registros.controlador.ReservaControlador();
+    mostrarDatosDelTipo();
     cargarDatosTabla();
     }
 
@@ -106,13 +107,7 @@ public class PanelHabitaciones extends javax.swing.JPanel {
 
     private void cmbTipoHabitacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoHabitacionItemStateChanged
      if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-        String tipo = (String) cmbTipoHabitacion.getSelectedItem();
-        registros.modelo.Habitacion temporal = controlador.crearHabitacion(tipo, "TEMP");
-
-        if (temporal != null) {
-            txtCapacidad.setText(String.valueOf(temporal.getCapacidadMaxima()));
-            txtTarifa.setText(String.valueOf(temporal.getTarifaPorNoche()));
-        }
+        mostrarDatosDelTipo();
     }
     }//GEN-LAST:event_cmbTipoHabitacionItemStateChanged
 
@@ -154,6 +149,16 @@ public class PanelHabitaciones extends javax.swing.JPanel {
     private javax.swing.JTextField txtNumeroHabitacion;
     private javax.swing.JTextField txtTarifa;
     // End of variables declaration//GEN-END:variables
+private void mostrarDatosDelTipo() {
+    String tipo = (String) cmbTipoHabitacion.getSelectedItem();
+    registros.modelo.Habitacion habitacion = controlador.crearHabitacion(tipo, "TEMP");
+
+    if (habitacion != null) {
+        txtCapacidad.setText("" + habitacion.getCapacidadMaxima());
+        txtTarifa.setText("" + habitacion.getTarifaPorNoche());
+    }
+}
+
 private void cargarDatosTabla() {
     javax.swing.table.DefaultTableModel modelo =
             (javax.swing.table.DefaultTableModel) tablaHabitaciones.getModel();

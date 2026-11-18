@@ -1,11 +1,13 @@
 package hilos;
 
 import java.time.LocalDate;
-import registros.modelo.EstadoReserva;
 import registros.modelo.GestorHotel;
-import registros.modelo.Reserva;
 
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class SupervisorReservas implements Runnable {
     private GestorHotel gestor;
 
@@ -14,18 +16,7 @@ public class SupervisorReservas implements Runnable {
     }
 
     public int revisarVencidas(LocalDate fecha) {
-        int cantidad = 0;
-
-        synchronized (gestor) {
-            for (Reserva reserva : gestor.getReservas()) {
-                if (reserva.getEstado() == EstadoReserva.CONFIRMADA
-                        && reserva.getFechaEntrada().isBefore(fecha)) {
-
-                    reserva.setEstado(EstadoReserva.VENCIDA);
-                    cantidad++;
-                }}
-        }
-        return cantidad;
+        return gestor.actualizarReservasVencidas(fecha);
     }
 
     @Override

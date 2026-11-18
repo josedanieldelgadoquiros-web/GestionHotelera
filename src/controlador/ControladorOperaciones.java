@@ -10,6 +10,10 @@ import registros.modelo.GestorHotel;
 import registros.modelo.Habitacion;
 import registros.modelo.Reserva;
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class ControladorOperaciones {
 
     private GestorHotel gestor;

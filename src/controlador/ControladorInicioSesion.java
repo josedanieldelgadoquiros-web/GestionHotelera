@@ -4,6 +4,10 @@ import hilos.SupervisorReservas;
 import java.time.LocalDate;
 import registros.modelo.GestorHotel;
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class ControladorInicioSesion {
 
     private GestorHotel gestor;

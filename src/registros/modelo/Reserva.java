@@ -102,7 +102,7 @@ public class Reserva {
         return fechaSalidaReal;
     }
 
-    public void registrarSalidaReal(LocalDate fecha) {
+    void registrarSalidaReal(LocalDate fecha) {
         this.fechaSalidaReal = fecha;
     }
 
@@ -118,7 +118,7 @@ public class Reserva {
         return estado;
     }
 
-    public void setEstado(EstadoReserva estado) {
+    void setEstado(EstadoReserva estado) {
         this.estado = estado;
     }
 

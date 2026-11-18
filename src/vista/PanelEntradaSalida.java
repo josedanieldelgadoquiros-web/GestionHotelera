@@ -2,6 +2,10 @@ package vista;
 import controlador.ControladorOperaciones;
 
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class PanelEntradaSalida extends javax.swing.JPanel {
     private ControladorOperaciones controlador;
 

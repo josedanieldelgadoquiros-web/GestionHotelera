@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class IndicadoresHotel {
     
     private int totalHabitaciones;

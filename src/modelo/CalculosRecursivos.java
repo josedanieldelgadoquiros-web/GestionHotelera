@@ -6,6 +6,10 @@ import registros.modelo.EstadoReserva;
 import registros.modelo.Habitacion;
 import registros.modelo.Reserva;
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class CalculosRecursivos {
     public long calcularIngresosEsperados(ArrayList<Reserva> reservas) {
         return sumarIngresos(reservas, 0);

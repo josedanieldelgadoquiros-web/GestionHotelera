@@ -25,6 +25,6 @@ public class HabitacionIndividual extends Habitacion {
 
     @Override
     public long getTarifaPorNoche() {
-        return 25000; // Tarifa por noche en colones
+        return 25000; 
     }
 }

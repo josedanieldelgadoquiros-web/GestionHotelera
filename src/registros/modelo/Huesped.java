@@ -22,16 +22,16 @@ public class Huesped {
     }
 
     public boolean esValido() {
-        if (identificacion == null || identificacion.isEmpty()) {
+        if (identificacion == null || identificacion.trim().isEmpty()) {
             return false;
         }
-        if (nombreCompleto == null || nombreCompleto.isEmpty()) {
+        if (nombreCompleto == null || nombreCompleto.trim().isEmpty()) {
             return false;
         }
-        if (telefono == null || telefono.isEmpty()) {
+        if (telefono == null || telefono.trim().isEmpty()) {
             return false;
         }
-        if (correo == null || correo.isEmpty()) {
+        if (correo == null || correo.trim().isEmpty()) {
             return false;
         }
         if (correoTieneFormatoValido() == false) {
@@ -91,22 +91,6 @@ public class Huesped {
 
     public String getCorreo() {
         return correo;
-    }
-
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     @Override

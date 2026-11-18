@@ -22,7 +22,11 @@ public class ReservaControlador {
     }
 
     public boolean registrarHabitacion(String tipo, String numero) {
-        Habitacion nuevaHabitacion = crearHabitacion(tipo, numero);
+        if (numero == null || numero.trim().isEmpty()) {
+            return false;
+        }
+
+        Habitacion nuevaHabitacion = crearHabitacion(tipo, numero.trim());
 
         if (nuevaHabitacion == null) {
             return false;
@@ -33,6 +37,11 @@ public class ReservaControlador {
 
     public boolean registrarReserva(Huesped huesped, Habitacion habitacion, int cantidadPersonas,
             LocalDate fechaEntrada, LocalDate fechaSalida, String recepcionista) {
+
+        if (huesped == null || habitacion == null
+                || fechaEntrada == null || fechaSalida == null) {
+            return false;
+        }
 
         Reserva nuevaReserva = new Reserva(huesped, habitacion, cantidadPersonas,
                 fechaEntrada, fechaSalida, recepcionista);

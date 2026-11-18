@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 
+/**
+ *
+ * @author ElectrickS
+ */
 public class PanelDisponibilidadHabitaciones extends javax.swing.JPanel {
     private ControladorOperaciones controlador;
 
@@ -29,7 +33,7 @@ public class PanelDisponibilidadHabitaciones extends javax.swing.JPanel {
         lblTitulo.setForeground(new java.awt.Color(0, 0, 102));
         lblTitulo.setText("Consulta de disponibilidad");
 
-        lblFecha.setText("Fecha (aaaa-MM-dd):");
+        lblFecha.setText("Fecha (dd/MM/aaaa):");
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(this::btnConsultarActionPerformed);
@@ -83,13 +87,15 @@ public class PanelDisponibilidadHabitaciones extends javax.swing.JPanel {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         try {
-    LocalDate fecha = LocalDate.parse(txtFecha.getText().trim());
+    java.time.format.DateTimeFormatter formato =
+            java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu");
+    LocalDate fecha = LocalDate.parse(txtFecha.getText().trim(), formato);
     int cantidad = controlador.consultarCantidadDisponible(fecha);
     String numeros = controlador.consultarNumerosDisponibles(fecha);
     lblCantidad.setText("Habitaciones disponibles: " + cantidad);
     txtHabitaciones.setText(numeros);
 } catch (DateTimeParseException error) {
-    lblCantidad.setText("Fecha incorrecta. Use aaaa-MM-dd");
+    lblCantidad.setText("Fecha incorrecta. Use dd/MM/aaaa");
     txtHabitaciones.setText("");
 }
     }//GEN-LAST:event_btnConsultarActionPerformed
