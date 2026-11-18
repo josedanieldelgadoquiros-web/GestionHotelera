@@ -260,4 +260,8 @@ private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
         }
     }
 } 
+    public void actualizarDatos(){
+        cargarCombos();
+        cargarDatosTabla();
+    }
 }
