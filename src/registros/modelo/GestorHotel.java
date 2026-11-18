@@ -26,7 +26,7 @@ public class GestorHotel {
         usuarioActivo = "";
     }
 
-    public static GestorHotel getInstancia() {
+    public static synchronized GestorHotel getInstancia() {
         if (instancia == null) {
             instancia = new GestorHotel();
         }
@@ -53,7 +53,7 @@ public class GestorHotel {
         return usuarioActivo;
     }
 
-    public boolean existeHuesped(String identificacion) {
+    public synchronized boolean existeHuesped(String identificacion) {
         for (int i = 0; i < huespedes.size(); i++) {
             Huesped h = huespedes.get(i);
             if (h.getIdentificacion().equals(identificacion)) {
@@ -63,7 +63,7 @@ public class GestorHotel {
         return false;
     }
 
-    public boolean agregarHuesped(Huesped huesped) {
+    public synchronized boolean agregarHuesped(Huesped huesped) {
         if (existeHuesped(huesped.getIdentificacion())) {
             return false;
         }
@@ -71,7 +71,7 @@ public class GestorHotel {
         return true;
     }
 
-    public boolean existeHabitacion(String numero) {
+    public synchronized boolean existeHabitacion(String numero) {
         for (int i = 0; i < habitaciones.size(); i++) {
             Habitacion hab = habitaciones.get(i);
             if (hab.getNumero().equals(numero)) {
@@ -81,7 +81,7 @@ public class GestorHotel {
         return false;
     }
 
-    public boolean agregarHabitacion(Habitacion habitacion) {
+    public synchronized boolean agregarHabitacion(Habitacion habitacion) {
         if (existeHabitacion(habitacion.getNumero())) {
             return false;
         }
@@ -89,7 +89,7 @@ public class GestorHotel {
         return true;
     }
 
-    public boolean seSolapan(Habitacion habitacion, LocalDate fechaEntrada, LocalDate fechaSalida) {
+    public synchronized boolean seSolapan(Habitacion habitacion, LocalDate fechaEntrada, LocalDate fechaSalida) {
         for (int i = 0; i < reservas.size(); i++) {
             Reserva r = reservas.get(i);
 
@@ -104,7 +104,7 @@ public class GestorHotel {
         return false;
     }
 
-    public boolean agregarReserva(Reserva reserva) {
+    public synchronized boolean agregarReserva(Reserva reserva) {
         if (reserva.esValida() == false) {
             return false;
         }
@@ -115,7 +115,7 @@ public class GestorHotel {
         return true;
     }
 
-    public int actualizarReservasVencidas(LocalDate fechaActual) {
+    public synchronized int actualizarReservasVencidas(LocalDate fechaActual) {
         int cantidad = 0;
         for (int i = 0; i < reservas.size(); i++) {
             Reserva r = reservas.get(i);
@@ -127,15 +127,63 @@ public class GestorHotel {
         return cantidad;
     }
 
-    public ArrayList<Habitacion> getHabitaciones() {
-        return habitaciones;
+    public synchronized Reserva buscarReservaPorCodigo(String codigo) {
+        for (int i = 0; i < reservas.size(); i++) {
+            Reserva r = reservas.get(i);
+            if (r.getIdReserva().equals(codigo)) {
+                return r;
+            }
+        }
+        return null;
     }
 
-    public ArrayList<Huesped> getHuespedes() {
-        return huespedes;
+    public synchronized boolean realizarCheckIn(String codigoReserva, LocalDate fechaActual) {
+        Reserva reserva = buscarReservaPorCodigo(codigoReserva);
+
+        if (reserva == null) {
+            return false;
+        }
+        if (reserva.getEstado() != EstadoReserva.CONFIRMADA) {
+            return false;
+        }
+        if (reserva.getFechaEntrada().compareTo(fechaActual) != 0) {
+            return false;
+        }
+
+        reserva.setEstado(EstadoReserva.HOSPEDADO);
+        return true;
     }
 
-    public ArrayList<Reserva> getReservas() {
-        return reservas;
+    public synchronized boolean realizarCheckOut(String codigoReserva, LocalDate fechaActual) {
+        Reserva reserva = buscarReservaPorCodigo(codigoReserva);
+
+        if (reserva == null) {
+            return false;
+        }
+        if (reserva.getEstado() != EstadoReserva.HOSPEDADO) {
+            return false;
+        }
+
+        reserva.registrarSalidaReal(fechaActual);
+        reserva.setEstado(EstadoReserva.FINALIZADA);
+        return true;
+    }
+
+    public synchronized ArrayList<Habitacion> getHabitaciones() {
+        ArrayList<Habitacion> copia = new ArrayList<>();
+        copia.addAll(habitaciones);
+        return copia;
+    }
+
+    public synchronized ArrayList<Huesped> getHuespedes() {
+        ArrayList<Huesped> copia = new ArrayList<>();
+        copia.addAll(huespedes);
+        return copia;
+    }
+
+    public synchronized ArrayList<Reserva> getReservas() {
+        ArrayList<Reserva> copia = new ArrayList<>();
+        copia.addAll(reservas);
+        return copia;
     }
 }
