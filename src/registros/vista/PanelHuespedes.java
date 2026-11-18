@@ -3,18 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package registros.vista;
-
+import javax.swing.table.DefaultTableModel;
+import registros.controlador.RegistroControlador;
+import registros.modelo.Huesped;
+import java.util.ArrayList;
 /**
  *
  * @author MarcoR
  */
 public class PanelHuespedes extends javax.swing.JPanel {
-
+private RegistroControlador controlador;
     /**
      * Creates new form PanelHuespedes
      */
     public PanelHuespedes() {
         initComponents();
+        controlador = new RegistroControlador();
+        cargarDatosTabla();
     }
 
     /**
@@ -67,9 +72,11 @@ public class PanelHuespedes extends javax.swing.JPanel {
         btnRegistrarHuesped.setBackground(new java.awt.Color(11, 79, 145));
         btnRegistrarHuesped.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarHuesped.setText("Registrar");
+        btnRegistrarHuesped.addActionListener(this::btnRegistrarHuespedActionPerformed);
         add(btnRegistrarHuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 245, -1, -1));
 
         btnLimpiarHuesped.setText("Limpiar");
+        btnLimpiarHuesped.addActionListener(this::btnLimpiarHuespedActionPerformed);
         add(btnLimpiarHuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 245, -1, -1));
 
         tablaHuespedes.setModel(new javax.swing.table.DefaultTableModel(
@@ -93,6 +100,33 @@ public class PanelHuespedes extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 274, -1, 190));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegistrarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarHuespedActionPerformed
+
+    String id = txtIdentificacion.getText().trim();
+    String nombre = txtNombreCompleto.getText().trim();
+    String telefono = txtTelefono.getText().trim();
+    String correo = txtCorreo.getText().trim();
+    
+    boolean exito = controlador.agregarHuesped(id, nombre, telefono, correo);
+    
+    if (exito) {
+        cargarDatosTabla();
+        txtIdentificacion.setText("");
+        txtNombreCompleto.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Datos inválidos o formato de correo incorrecto.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnRegistrarHuespedActionPerformed
+
+    private void btnLimpiarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarHuespedActionPerformed
+            txtIdentificacion.setText("");
+    txtNombreCompleto.setText("");
+    txtTelefono.setText("");
+    txtCorreo.setText("");
+    }//GEN-LAST:event_btnLimpiarHuespedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiarHuesped;
@@ -109,4 +143,22 @@ public class PanelHuespedes extends javax.swing.JPanel {
     private javax.swing.JTextField txtNombreCompleto;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+private void cargarDatosTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaHuespedes.getModel();
+        modelo.setRowCount(0);
+        
+        ArrayList<Huesped> lista = controlador.obtenerHuespedes();
+        if (lista != null) {
+            for (Huesped h : lista) {
+                Object[] fila = {
+                    h.getIdentificacion(),
+                    h.getNombreCompleto(),
+                    h.getTelefono(),
+                    h.getCorreo()
+                };
+                modelo.addRow(fila);
+            }
+        }
+    
+}
 }
