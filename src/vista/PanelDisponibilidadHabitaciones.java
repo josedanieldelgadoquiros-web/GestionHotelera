@@ -1,9 +1,16 @@
 package vista;
+import controlador.ControladorOperaciones;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 
 public class PanelDisponibilidadHabitaciones extends javax.swing.JPanel {
+    private ControladorOperaciones controlador;
+
 
     public PanelDisponibilidadHabitaciones() {
         initComponents();
+            controlador = new ControladorOperaciones();
     }
 
     @SuppressWarnings("unchecked")
@@ -22,17 +29,18 @@ public class PanelDisponibilidadHabitaciones extends javax.swing.JPanel {
         lblTitulo.setForeground(new java.awt.Color(0, 0, 102));
         lblTitulo.setText("Consulta de disponibilidad");
 
-        lblFecha.setText("Fecha (dd/MM/aaaa):");
+        lblFecha.setText("Fecha (aaaa-MM-dd):");
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(this::btnConsultarActionPerformed);
 
         lblCantidad.setText("Habitaciones disponibles: -");
 
         lblListado.setText("Números de habitaciones disponibles:");
 
+        txtHabitaciones.setEditable(false);
         txtHabitaciones.setColumns(32);
         txtHabitaciones.setRows(6);
-        txtHabitaciones.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -72,6 +80,19 @@ public class PanelDisponibilidadHabitaciones extends javax.swing.JPanel {
                 .addContainerGap(177, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try {
+    LocalDate fecha = LocalDate.parse(txtFecha.getText().trim());
+    int cantidad = controlador.consultarCantidadDisponible(fecha);
+    String numeros = controlador.consultarNumerosDisponibles(fecha);
+    lblCantidad.setText("Habitaciones disponibles: " + cantidad);
+    txtHabitaciones.setText(numeros);
+} catch (DateTimeParseException error) {
+    lblCantidad.setText("Fecha incorrecta. Use aaaa-MM-dd");
+    txtHabitaciones.setText("");
+}
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;

@@ -1,11 +1,16 @@
 package vista;
+import controlador.ControladorOperaciones;
+
 
 public class PanelEntradaSalida extends javax.swing.JPanel {
+    private ControladorOperaciones controlador;
+
 
     public PanelEntradaSalida() {
         initComponents();
         cmbAccion.addItem("Check-in");
         cmbAccion.addItem("Check-out");
+            controlador = new ControladorOperaciones();
     }
 
     @SuppressWarnings("unchecked")
@@ -29,17 +34,21 @@ public class PanelEntradaSalida extends javax.swing.JPanel {
 
         lblCodigo.setText("Código de reserva:");
 
+        txtCodigo.addActionListener(this::txtCodigoActionPerformed);
+
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         lblDetalle.setText("Detalle de la reserva:");
 
+        txtDetalle.setEditable(false);
         txtDetalle.setColumns(32);
         txtDetalle.setRows(6);
-        txtDetalle.setEditable(false);
 
         lblAccion.setText("Operación:");
 
         btnProcesar.setText("Procesar");
+        btnProcesar.addActionListener(this::btnProcesarActionPerformed);
 
         lblMensaje.setText(" ");
 
@@ -92,6 +101,41 @@ public class PanelEntradaSalida extends javax.swing.JPanel {
                 .addContainerGap(190, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+String codigo = txtCodigo.getText().trim();
+if (codigo.equals("")) {
+    lblMensaje.setText("Escriba un código de reserva.");
+    txtDetalle.setText("");
+    return;
+}
+txtDetalle.setText(controlador.buscarReserva(codigo));
+lblMensaje.setText(" ");
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
+        String codigo = txtCodigo.getText().trim();
+if (codigo.equals("")) {
+    lblMensaje.setText("Escriba un código de reserva.");
+    return;
+}
+boolean sePudo;
+if (cmbAccion.getSelectedItem().equals("Check-in")) {
+    sePudo = controlador.hacerCheckIn(codigo);
+} else {
+    sePudo = controlador.hacerCheckOut(codigo);
+}
+if (sePudo) {
+    lblMensaje.setText("La operación se realizó correctamente.");
+    txtDetalle.setText(controlador.buscarReserva(codigo));
+} else {
+    lblMensaje.setText("No se pudo realizar la operación.");
+}
+    }//GEN-LAST:event_btnProcesarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

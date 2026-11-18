@@ -138,7 +138,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblDisponiblesTexto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Habitaciones disponibles:"/>
+        <Property name="text" type="java.lang.String" value="Habitaciones no ocupadas:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDisponiblesValor">

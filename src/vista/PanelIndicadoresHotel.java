@@ -62,7 +62,7 @@ private Timer reloj;
         lblOcupadasValor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblOcupadasValor.setText("-");
 
-        lblDisponiblesTexto.setText("Habitaciones disponibles:");
+        lblDisponiblesTexto.setText("Habitaciones no ocupadas:");
 
         lblDisponiblesValor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDisponiblesValor.setText("-");

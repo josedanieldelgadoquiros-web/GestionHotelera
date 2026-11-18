@@ -11,40 +11,80 @@ import registros.modelo.Habitacion;
 import registros.modelo.Reserva;
 
 public class ControladorOperaciones {
-    
-    private CalculosRecursivos calculos;
+
     private GestorHotel gestor;
+    private CalculosRecursivos calculos;
     private ActualizadorIndicadores actualizador;
     private Thread hiloSupervisor;
     private Thread hiloIndicadores;
 
     public ControladorOperaciones() {
-        calculos = new CalculosRecursivos();
         gestor = GestorHotel.getInstancia();
+        calculos = new CalculosRecursivos();
     }
 
-    public int consultarCantidadDisponible(
-            ArrayList<Habitacion> habitaciones,
-            ArrayList<Reserva> reservas,
-            LocalDate fecha) {
+    public int consultarCantidadDisponible(LocalDate fecha) {
+        synchronized (gestor) {
+            return calculos.contarHabitacionesDisponibles(
+                    gestor.getHabitaciones(), gestor.getReservas(), fecha);
+        }
+    }
 
-        return calculos.contarHabitacionesDisponibles(
-                habitaciones, reservas, fecha);
+    public String consultarNumerosDisponibles(LocalDate fecha) {
+        String numeros = "";
+        synchronized (gestor) {
+            ArrayList<Reserva> reservas = gestor.getReservas();
+            for (Habitacion habitacion : gestor.getHabitaciones()) {
+                if (calculos.estaDisponible(habitacion, reservas, fecha)) {
+                    if (!numeros.equals("")) {
+                        numeros = numeros + ", ";
+                    }
+                    numeros = numeros + habitacion.getNumero();
+                }
+            }
+        }
+        return numeros;
+    }
+
+    public String buscarReserva(String codigo) {
+        synchronized (gestor) {
+            Reserva reserva = gestor.buscarReservaPorCodigo(codigo);
+            if (reserva == null) {
+                return "No se encontró la reserva.";
+            }
+            return reserva.toString();
+        }
+    }
+
+    public boolean hacerCheckIn(String codigo) {
+        return gestor.realizarCheckIn(codigo, LocalDate.now());
+    }
+
+    public boolean hacerCheckOut(String codigo) {
+        return gestor.realizarCheckOut(codigo, LocalDate.now());
     }
 
     public synchronized boolean ejecutarProcesos() {
-         if (procesosActivos()) {
-        return false;}
-
+        if (procesosActivos()) {
+            return false;
+        }
         SupervisorReservas supervisor = new SupervisorReservas(gestor);
         hiloSupervisor = new Thread(supervisor, "SupervisorReservas");
-
         actualizador = new ActualizadorIndicadores(gestor, hiloSupervisor);
         hiloIndicadores = new Thread(actualizador, "ActualizadorIndicadores");
-
         hiloSupervisor.start();
         hiloIndicadores.start();
         return true;
+    }
+
+    public synchronized boolean procesosActivos() {
+        if (hiloSupervisor != null && hiloSupervisor.isAlive()) {
+            return true;
+        }
+        if (hiloIndicadores != null && hiloIndicadores.isAlive()) {
+            return true;
+        }
+        return false;
     }
 
     public IndicadoresHotel getIndicadores() {
@@ -53,10 +93,4 @@ public class ControladorOperaciones {
         }
         return actualizador.getIndicadores();
     }
-    
-    public synchronized boolean procesosActivos() {
-    boolean supervisorActivo = hiloSupervisor != null && hiloSupervisor.isAlive();
-    boolean indicadoresActivos = hiloIndicadores != null && hiloIndicadores.isAlive();
-    return supervisorActivo || indicadoresActivos;
-}
 }

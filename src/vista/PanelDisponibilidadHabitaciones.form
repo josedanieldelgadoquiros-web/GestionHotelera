@@ -71,7 +71,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblFecha">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fecha (dd/MM/aaaa):"/>
+        <Property name="text" type="java.lang.String" value="Fecha (aaaa-MM-dd):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFecha">
@@ -80,6 +80,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Consultar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCantidad">
       <Properties>
