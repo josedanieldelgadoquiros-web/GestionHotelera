@@ -26,4 +26,5 @@ public class RegistroControlador {
     public ArrayList<Huesped> obtenerHuespedes() {
         return GestorHotel.getInstancia().getHuespedes();
     }
+    
 }

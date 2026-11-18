@@ -3,20 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package registros.vista;
-
 /**
  *
  * @author MarcoR
  */
 public class PanelReservas extends javax.swing.JPanel {
-
+private registros.controlador.RegistroControlador controladorHuespedes;
+private registros.controlador.ReservaControlador controladorReservas;
+private java.util.ArrayList<registros.modelo.Huesped> listaHuespedes;
+private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
     /**
      * Creates new form PanelReservas
      */
     public PanelReservas() {
         initComponents();
-    }
-
+    controladorHuespedes = new registros.controlador.RegistroControlador();
+    controladorReservas = new registros.controlador.ReservaControlador();
+    cargarCombos();
+    cargarDatosTabla();
+    txtRecepcionista.setText(controladorReservas.obtenerUsuarioActivo());
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,6 +104,7 @@ public class PanelReservas extends javax.swing.JPanel {
         btnRegistrarReserva.setBackground(new java.awt.Color(11, 79, 145));
         btnRegistrarReserva.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarReserva.setText("Registrar reserva");
+        btnRegistrarReserva.addActionListener(this::btnRegistrarReservaActionPerformed);
         add(btnRegistrarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 323, -1, -1));
 
         tablaReservas.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,6 +146,59 @@ public class PanelReservas extends javax.swing.JPanel {
         add(txtRecepcionista, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 140, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegistrarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarReservaActionPerformed
+            int indiceHuesped = cmbHuesped.getSelectedIndex();
+    int indiceHabitacion = cmbHabitacion.getSelectedIndex();
+
+    if (indiceHuesped < 0 || indiceHabitacion < 0) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Debe seleccionar un huesped y una habitacion.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    registros.modelo.Huesped huesped = listaHuespedes.get(indiceHuesped);
+    registros.modelo.Habitacion habitacion = listaHabitaciones.get(indiceHabitacion);
+
+    int personas;
+    try {
+        personas = Integer.parseInt(txtPersonas.getText().trim());
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "La cantidad de personas debe ser un numero.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    java.time.LocalDate fechaEntrada;
+    java.time.LocalDate fechaSalida;
+    try {
+        fechaEntrada = java.time.LocalDate.parse(txtFechaEntrada.getText().trim());
+        fechaSalida = java.time.LocalDate.parse(txtFechaSalida.getText().trim());
+    } catch (java.time.format.DateTimeParseException e) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Las fechas deben tener el formato AAAA-MM-DD, por ejemplo 2026-11-20.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String recepcionista = controladorReservas.obtenerUsuarioActivo();
+
+    boolean exito = controladorReservas.registrarReserva(huesped, habitacion, personas,
+            fechaEntrada, fechaSalida, recepcionista);
+
+    if (exito) {
+        cargarDatosTabla();
+        txtPersonas.setText("");
+        txtFechaEntrada.setText("");
+        txtFechaSalida.setText("");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Reserva invalida o la habitacion ya esta ocupada en esas fechas.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnRegistrarReservaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarReserva;
@@ -166,4 +226,38 @@ public class PanelReservas extends javax.swing.JPanel {
     private javax.swing.JTextField txtPersonas;
     private javax.swing.JTextField txtRecepcionista;
     // End of variables declaration//GEN-END:variables
+    private void cargarCombos() {
+    listaHuespedes = controladorHuespedes.obtenerHuespedes();
+    cmbHuesped.removeAllItems();
+    for (registros.modelo.Huesped h : listaHuespedes) {
+        cmbHuesped.addItem(h.getIdentificacion() + " - " + h.getNombreCompleto());
+    }
+
+    listaHabitaciones = controladorReservas.obtenerHabitaciones();
+    cmbHabitacion.removeAllItems();
+    for (registros.modelo.Habitacion hab : listaHabitaciones) {
+        cmbHabitacion.addItem(hab.getNumero() + " - " + hab.getTipo());
+    }
+}
+    
+    private void cargarDatosTabla() {
+    javax.swing.table.DefaultTableModel modelo =
+            (javax.swing.table.DefaultTableModel) tablaReservas.getModel();
+    modelo.setRowCount(0);
+
+    java.util.ArrayList<registros.modelo.Reserva> lista = controladorReservas.obtenerReservas();
+    if (lista != null) {
+        for (registros.modelo.Reserva r : lista) {
+            Object[] fila = {
+                r.getIdReserva(),
+                r.getHuesped().getNombreCompleto(),
+                r.getHabitacion().getNumero(),
+                r.getFechaEntrada(),
+                r.getFechaSalida(),
+                r.getEstado()
+            };
+            modelo.addRow(fila);
+        }
+    }
+} 
 }

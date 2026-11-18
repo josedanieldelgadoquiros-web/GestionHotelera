@@ -9,12 +9,14 @@ package registros.vista;
  * @author MarcoR
  */
 public class PanelHabitaciones extends javax.swing.JPanel {
-
+    private registros.controlador.ReservaControlador controlador;
     /**
      * Creates new form PanelHabitaciones
      */
     public PanelHabitaciones() {
         initComponents();
+    controlador = new registros.controlador.ReservaControlador();
+    cargarDatosTabla();
     }
 
     /**
@@ -59,6 +61,7 @@ public class PanelHabitaciones extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 148, -1, -1));
 
         cmbTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Doble", "Familiar" }));
+        cmbTipoHabitacion.addItemListener(this::cmbTipoHabitacionItemStateChanged);
         add(cmbTipoHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 200, -1));
 
         txtCapacidad.setEditable(false);
@@ -73,9 +76,11 @@ public class PanelHabitaciones extends javax.swing.JPanel {
         btnRegistrarHabitacion.setBackground(new java.awt.Color(11, 79, 145));
         btnRegistrarHabitacion.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarHabitacion.setText("Registrar");
+        btnRegistrarHabitacion.addActionListener(this::btnRegistrarHabitacionActionPerformed);
         add(btnRegistrarHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
 
         btnLimpiarHabitacion.setText("Limpiar");
+        btnLimpiarHabitacion.addActionListener(this::btnLimpiarHabitacionActionPerformed);
         add(btnLimpiarHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, -1, -1));
 
         tablaHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -99,6 +104,40 @@ public class PanelHabitaciones extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 275, -1, 180));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbTipoHabitacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoHabitacionItemStateChanged
+     if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+        String tipo = (String) cmbTipoHabitacion.getSelectedItem();
+        registros.modelo.Habitacion temporal = controlador.crearHabitacion(tipo, "TEMP");
+
+        if (temporal != null) {
+            txtCapacidad.setText(String.valueOf(temporal.getCapacidadMaxima()));
+            txtTarifa.setText(String.valueOf(temporal.getTarifaPorNoche()));
+        }
+    }
+    }//GEN-LAST:event_cmbTipoHabitacionItemStateChanged
+
+    private void btnRegistrarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarHabitacionActionPerformed
+    String numero = txtNumeroHabitacion.getText().trim();
+    String tipo = (String) cmbTipoHabitacion.getSelectedItem();
+
+    boolean exito = controlador.registrarHabitacion(tipo, numero);
+
+    if (exito) {
+        cargarDatosTabla();
+        txtNumeroHabitacion.setText("");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Número de habitación vacío, repetido o tipo inválido.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnRegistrarHabitacionActionPerformed
+
+    private void btnLimpiarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarHabitacionActionPerformed
+    txtNumeroHabitacion.setText("");
+    txtCapacidad.setText("");
+    txtTarifa.setText("");
+    }//GEN-LAST:event_btnLimpiarHabitacionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiarHabitacion;
@@ -115,4 +154,23 @@ public class PanelHabitaciones extends javax.swing.JPanel {
     private javax.swing.JTextField txtNumeroHabitacion;
     private javax.swing.JTextField txtTarifa;
     // End of variables declaration//GEN-END:variables
+private void cargarDatosTabla() {
+    javax.swing.table.DefaultTableModel modelo =
+            (javax.swing.table.DefaultTableModel) tablaHabitaciones.getModel();
+    modelo.setRowCount(0);
+
+    java.util.ArrayList<registros.modelo.Habitacion> lista = controlador.obtenerHabitaciones();
+    if (lista != null) {
+        for (registros.modelo.Habitacion h : lista) {
+            Object[] fila = {
+                h.getNumero(),
+                h.getTipo(),
+                h.getCapacidadMaxima(),
+                h.getTarifaPorNoche()
+            };
+            modelo.addRow(fila);
+        }
+    }
+}
+
 }

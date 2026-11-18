@@ -47,4 +47,7 @@ public class ReservaControlador {
     public ArrayList<Reserva> obtenerReservas() {
         return GestorHotel.getInstancia().getReservas();
     }
+    public String obtenerUsuarioActivo() {
+    return registros.modelo.GestorHotel.getInstancia().getUsuarioActivo();
+}
 }
