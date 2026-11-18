@@ -50,6 +50,8 @@ public class FrmHotel extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hotel - Gestión Hotelera");
 
+        pestanasHotel.addChangeListener(this::pestanasHotelStateChanged);
+
         lblRecepcionista.setText("Recepcionista: -");
 
         btnCambiarUsuario.setText("Cambiar usuario");
@@ -134,6 +136,12 @@ public class FrmHotel extends javax.swing.JFrame {
             dispose();
 }
     }//GEN-LAST:event_btnCambiarUsuarioActionPerformed
+
+    private void pestanasHotelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pestanasHotelStateChanged
+        if (pestanasHotel.getSelectedComponent() == panelReservas1) {
+    panelReservas1.actualizarDatos();
+}
+    }//GEN-LAST:event_pestanasHotelStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarUsuario;
