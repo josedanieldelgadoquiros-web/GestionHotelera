@@ -189,6 +189,13 @@ private java.util.ArrayList<registros.modelo.Habitacion> listaHabitaciones;
 
     if (exito) {
         cargarDatosTabla();
+        java.util.ArrayList<registros.modelo.Reserva> reservas = controladorReservas.obtenerReservas();
+        if (reservas != null && !reservas.isEmpty()) {
+            registros.modelo.Reserva ultima = reservas.get(reservas.size() - 1);
+            txtCodigoReserva.setText(ultima.getIdReserva());
+            txtNoches.setText("" + ultima.getCantidadNoches());
+            txtImporte.setText("" + ultima.getImporteTotal());
+        }
         txtPersonas.setText("");
         txtFechaEntrada.setText("");
         txtFechaSalida.setText("");
