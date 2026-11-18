@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
+import controlador.ControladorInicioSesion;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -16,10 +19,10 @@ public class FrmHotel extends javax.swing.JFrame {
      */
     public FrmHotel() {
         initComponents();
-        pestanasHotel.addTab("Disponibilidad", new PanelDisponibilidadHabitaciones());
-        pestanasHotel.addTab("Entrada / Salida", new PanelEntradaSalida());
-        pestanasHotel.addTab("Indicadores", new PanelIndicadoresHotel());
-        setLocationRelativeTo(null);
+        
+        ControladorInicioSesion controlador = new ControladorInicioSesion();
+        lblRecepcionista.setText("Recepcionista: " + controlador.getUsuarioActivo());
+        
     }
 
     /**
@@ -35,6 +38,13 @@ public class FrmHotel extends javax.swing.JFrame {
         panelInicio = new javax.swing.JPanel();
         lblRecepcionista = new javax.swing.JLabel();
         btnCambiarUsuario = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        panelHuespedes1 = new registros.vista.PanelHuespedes();
+        panelHabitaciones1 = new registros.vista.PanelHabitaciones();
+        panelReservas1 = new registros.vista.PanelReservas();
+        panelDisponibilidadHabitaciones1 = new vista.PanelDisponibilidadHabitaciones();
+        panelEntradaSalida1 = new vista.PanelEntradaSalida();
+        panelIndicadoresHotel1 = new vista.PanelIndicadoresHotel();
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,6 +53,10 @@ public class FrmHotel extends javax.swing.JFrame {
         lblRecepcionista.setText("Recepcionista: -");
 
         btnCambiarUsuario.setText("Cambiar usuario");
+        btnCambiarUsuario.addActionListener(this::btnCambiarUsuarioActionPerformed);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Bienvenido al sistema de gestión hotelera");
 
         javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
         panelInicio.setLayout(panelInicioLayout);
@@ -55,20 +69,30 @@ public class FrmHotel extends javax.swing.JFrame {
                         .addComponent(btnCambiarUsuario))
                     .addGroup(panelInicioLayout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(lblRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(261, Short.MAX_VALUE))
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(345, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblRecepcionista)
                 .addGap(43, 43, 43)
                 .addComponent(btnCambiarUsuario)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(441, Short.MAX_VALUE))
         );
 
         pestanasHotel.addTab("Inicio", panelInicio);
+        pestanasHotel.addTab("Huéspedes", panelHuespedes1);
+        pestanasHotel.addTab("Habitaciones", panelHabitaciones1);
+        pestanasHotel.addTab("Reservas", panelReservas1);
+        pestanasHotel.addTab("Disponibilidad", panelDisponibilidadHabitaciones1);
+        pestanasHotel.addTab("Entrada / Salida", panelEntradaSalida1);
+        pestanasHotel.addTab("Indicadores", panelIndicadoresHotel1);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitulo.setText("GESTIÓN HOTELERA");
@@ -81,7 +105,7 @@ public class FrmHotel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(pestanasHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pestanasHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -93,18 +117,36 @@ public class FrmHotel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblTitulo)
                 .addGap(24, 24, 24)
-                .addComponent(pestanasHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pestanasHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCambiarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarUsuarioActionPerformed
+            int respuesta = JOptionPane.showConfirmDialog(this,"Quiere cambiar de usuario?","Cambiar usuario",JOptionPane.YES_NO_OPTION); 
+            if (respuesta == JOptionPane.YES_OPTION) {ControladorInicioSesion controlador = new ControladorInicioSesion();
+            controlador.cerrarSesion();
+            FrmLogin login = new FrmLogin();
+            login.setLocationRelativeTo(null);
+            login.setVisible(true);
+            dispose();
+}
+    }//GEN-LAST:event_btnCambiarUsuarioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarUsuario;
-    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblRecepcionista;
+    private javax.swing.JLabel lblTitulo;
+    private vista.PanelDisponibilidadHabitaciones panelDisponibilidadHabitaciones1;
+    private vista.PanelEntradaSalida panelEntradaSalida1;
+    private registros.vista.PanelHabitaciones panelHabitaciones1;
+    private registros.vista.PanelHuespedes panelHuespedes1;
+    private vista.PanelIndicadoresHotel panelIndicadoresHotel1;
     private javax.swing.JPanel panelInicio;
+    private registros.vista.PanelReservas panelReservas1;
     private javax.swing.JTabbedPane pestanasHotel;
     // End of variables declaration//GEN-END:variables
 }

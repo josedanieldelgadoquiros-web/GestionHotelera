@@ -1,10 +1,33 @@
 package vista;
 
+import controlador.ControladorOperaciones;
+import modelo.IndicadoresHotel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 public class PanelIndicadoresHotel extends javax.swing.JPanel {
+    private ControladorOperaciones controlador;
+private Timer reloj;
 
     public PanelIndicadoresHotel() {
         initComponents();
+        controlador = new ControladorOperaciones();
     }
+    private void mostrarIndicadores() {
+    IndicadoresHotel datos = controlador.getIndicadores();
+
+    if (datos == null) {
+        return;
+    }
+
+    lblTotalValor.setText("" + datos.getTotalHabitaciones());
+    lblOcupadasValor.setText("" + datos.getHabitacionesOcupadas());
+    lblDisponiblesValor.setText("" + datos.getHabitacionesNoOcupadas());
+    lblConfirmadasValor.setText("" + datos.getReservasConfirmadas());
+    lblVencidasValor.setText("" + datos.getReservasVencidas());
+    lblIngresosValor.setText("" + datos.getIngresosEsperados());
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,6 +83,7 @@ public class PanelIndicadoresHotel extends javax.swing.JPanel {
         lblIngresosValor.setText("-");
 
         btnEjecutarProcesos.setText("Ejecutar procesos");
+        btnEjecutarProcesos.addActionListener(this::btnEjecutarProcesosActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -130,6 +154,29 @@ public class PanelIndicadoresHotel extends javax.swing.JPanel {
                 .addContainerGap(185, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEjecutarProcesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarProcesosActionPerformed
+        if (controlador.ejecutarProcesos() == false) {
+    return;
+}
+
+btnEjecutarProcesos.setEnabled(false);
+
+reloj = new Timer(500, new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent evento) {
+        mostrarIndicadores();
+
+        if (controlador.procesosActivos() == false) {
+            mostrarIndicadores();
+            reloj.stop();
+            btnEjecutarProcesos.setEnabled(true);
+        }
+    }
+});
+
+reloj.start();
+    }//GEN-LAST:event_btnEjecutarProcesosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEjecutarProcesos;

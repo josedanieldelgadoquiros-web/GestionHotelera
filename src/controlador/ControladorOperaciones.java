@@ -33,13 +33,8 @@ public class ControladorOperaciones {
     }
 
     public synchronized boolean ejecutarProcesos() {
-        if (hiloSupervisor != null && hiloSupervisor.isAlive()) {
-            return false;
-        }
-
-        if (hiloIndicadores != null && hiloIndicadores.isAlive()) {
-            return false;
-        }
+         if (procesosActivos()) {
+        return false;}
 
         SupervisorReservas supervisor = new SupervisorReservas(gestor);
         hiloSupervisor = new Thread(supervisor, "SupervisorReservas");
@@ -58,4 +53,10 @@ public class ControladorOperaciones {
         }
         return actualizador.getIndicadores();
     }
+    
+    public synchronized boolean procesosActivos() {
+    boolean supervisorActivo = hiloSupervisor != null && hiloSupervisor.isAlive();
+    boolean indicadoresActivos = hiloIndicadores != null && hiloIndicadores.isAlive();
+    return supervisorActivo || indicadoresActivos;
+}
 }

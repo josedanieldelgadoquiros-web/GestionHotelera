@@ -4,6 +4,8 @@
  */
 package vista;
 
+import controlador.ControladorInicioSesion;
+
 /**
  *
  * @author ElectrickS
@@ -52,6 +54,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(0, 0, 51));
         btnIniciarSesion.setText("Iniciar sesión");
+        btnIniciarSesion.addActionListener(this::btnIniciarSesionActionPerformed);
 
         lblMensaje.setText(" ");
 
@@ -111,6 +114,20 @@ public class FrmLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        ControladorInicioSesion controlador = new ControladorInicioSesion();
+        String usuario = txtUsuario.getText().trim();
+        String contrasena = new String(txtContrasena.getPassword());
+        if (controlador.iniciarSesion(usuario, contrasena)) {
+            FrmHotel hotel = new FrmHotel();
+            hotel.setVisible(true);
+            dispose();
+        } else {
+            lblMensaje.setText("Usuario o contraseña incorrectos");
+            txtContrasena.setText("");
+}
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
      * @param args the command line arguments
